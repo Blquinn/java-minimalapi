@@ -1,5 +1,7 @@
-package com.github.blquinn.standups;
+package com.github.blquinn.users.domain;
 
+import com.github.blquinn.standups.domain.StandupUser;
+import com.github.blquinn.users.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -10,26 +12,20 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "standup")
+@Table(name = "users")
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor
-public class Standup {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-
-    @Column(name = "name")
+    @Column(name = "username", unique = true, nullable = false)
     @Nonnull
-    private String name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "standup")
+    private String username;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<StandupUser> standupUsers = Set.of();
 
-    public StandupDto toDto() {
-        return new StandupDto(id, name);
-    }
-
-    public StandupDetailDto toDetailDto() {
-        return new StandupDetailDto(id, name,
-                standupUsers.stream().map(su -> su.getUser().toDto()).toList());
+    public UserDto toDto() {
+        return new UserDto(id, username);
     }
 }

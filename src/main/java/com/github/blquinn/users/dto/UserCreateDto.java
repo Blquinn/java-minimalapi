@@ -1,4 +1,4 @@
-package com.github.blquinn.users;
+package com.github.blquinn.users.dto;
 
 import org.hibernate.validator.constraints.Length;
 

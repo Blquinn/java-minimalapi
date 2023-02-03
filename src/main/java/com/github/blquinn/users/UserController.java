@@ -2,6 +2,9 @@ package com.github.blquinn.users;
 
 import com.github.blquinn.common.jpa.EntityManagerFactoryWrapper;
 import com.github.blquinn.common.pagination.Page;
+import com.github.blquinn.users.domain.User;
+import com.github.blquinn.users.dto.UserCreateDto;
+import com.github.blquinn.users.dto.UserDto;
 import io.jooby.annotations.GET;
 import io.jooby.annotations.POST;
 import io.jooby.annotations.Path;

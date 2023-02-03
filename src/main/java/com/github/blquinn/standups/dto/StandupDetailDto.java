@@ -1,6 +1,6 @@
-package com.github.blquinn.standups;
+package com.github.blquinn.standups.dto;
 
-import com.github.blquinn.users.UserDto;
+import com.github.blquinn.users.dto.UserDto;
 
 import java.util.Collection;
 

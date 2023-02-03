@@ -1,6 +1,6 @@
-package com.github.blquinn.standups;
+package com.github.blquinn.standups.domain;
 
-import com.github.blquinn.users.User;
+import com.github.blquinn.users.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
