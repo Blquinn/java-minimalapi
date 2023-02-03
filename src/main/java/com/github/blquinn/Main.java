@@ -9,7 +9,6 @@ import io.jooby.Jooby;
 
 
 public class Main extends Jooby {
-
     {
         install(new DefaultModule());
         install(new DefaultHibernateModule());
@@ -18,7 +17,6 @@ public class Main extends Jooby {
         mvc(new UserController(require(EntityManagerFactoryWrapper.class)));
         mvc(new StandupController(require(EntityManagerFactoryWrapper.class)));
     }
-
 
     public static void main(String[] args) {
         Jooby.runApp(args, Main.class);

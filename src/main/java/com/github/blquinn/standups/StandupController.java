@@ -1,6 +1,7 @@
 package com.github.blquinn.standups;
 
 import com.github.blquinn.common.jpa.EntityManagerFactoryWrapper;
+import com.github.blquinn.common.modules.validation.ValidationException;
 import com.github.blquinn.common.pagination.Page;
 import com.github.blquinn.users.User;
 import io.jooby.annotations.GET;
@@ -23,14 +24,12 @@ public class StandupController {
 
     @GET
     public Page<StandupDto> list() {
-        var standups = emf.withHandle(h -> {
-            return h.query()
-                    .select(standup)
-                    .from(standup)
-                    .stream()
-                    .map(Standup::toDto)
-                    .toList();
-        });
+        var standups = emf.withHandle(h -> h.query()
+                .select(standup)
+                .from(standup)
+                .stream()
+                .map(Standup::toDto)
+                .toList());
         return new Page<>(null, standups);
     }
 
@@ -68,10 +67,10 @@ public class StandupController {
                         .select(standupUser.count().gt(0))
                         .from(standupUser)
                         .where(standupUser.standup.eq(standup), standupUser.user.eq(user))
-                        .fetchFirst();
+                        .fetchOne();
 
                 if (exists) {
-                    throw new RuntimeException("StandupUser already exists");
+                    throw new ValidationException("StandupUser already exists.");
                 }
 
                 return h.manager().merge(new StandupUser(standup, user));
