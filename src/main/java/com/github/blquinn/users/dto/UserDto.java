@@ -1,3 +1,4 @@
 package com.github.blquinn.users.dto;
 
-public record UserDto(long id, String username) {}
+public record UserDto(long id, String username) {
+}
