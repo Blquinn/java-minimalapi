@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Assertions;
 public class RestClient {
   private final String baseUrl;
   private final ObjectMapper objectMapper;
-  OkHttpClient client = new OkHttpClient();
+  static OkHttpClient client = new OkHttpClient();
+  static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
   public RestClient(String baseUrl, ObjectMapper objectMapper) {
     this.baseUrl = baseUrl;
@@ -24,10 +25,7 @@ public class RestClient {
     try {
       RequestBody body = null;
       if (requestBody != null) {
-        body = RequestBody.create(
-          MediaType.parse("application/json"),
-          objectMapper.writeValueAsString(requestBody)
-        );
+        body = RequestBody.create(objectMapper.writeValueAsString(requestBody), JSON);
       }
 
       var request = new Request.Builder()
