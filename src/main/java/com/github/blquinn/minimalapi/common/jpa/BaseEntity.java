@@ -7,8 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
+import org.hibernate.type.TextType;
 
+// Default all String fields to "text" type, instead of varchar(255).
+@TypeDefs({
+  @TypeDef(name = "string", defaultForType = String.class, typeClass = TextType.class)
+})
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
   @Id

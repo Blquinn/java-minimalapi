@@ -12,6 +12,7 @@ import io.jooby.Jooby;
 
 public class App extends Jooby {
 
+  // Classpath scanning for entities is broken in tests for now.
   public final static Class<?>[] ENTITY_CLASSES = {User.class, Standup.class, StandupUser.class};
 
   private final static String handWavingEmoji = "👋";
