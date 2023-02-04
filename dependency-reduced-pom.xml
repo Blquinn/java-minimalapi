@@ -33,7 +33,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.github.blquinn.Main</mainClass>
+              <mainClass>com.github.blquinn.minimalapi.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
