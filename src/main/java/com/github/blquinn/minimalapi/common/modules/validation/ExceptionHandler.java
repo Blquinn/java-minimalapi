@@ -8,6 +8,7 @@ import com.github.blquinn.minimalapi.common.jpa.EntityNotFoundException;
 import io.jooby.Context;
 import io.jooby.MediaType;
 import io.jooby.StatusCode;
+import io.jooby.exception.NotFoundException;
 import io.jooby.exception.StatusCodeException;
 import java.util.Arrays;
 import java.util.List;
@@ -27,9 +28,16 @@ public class ExceptionHandler {
 
     try {
       if (cause instanceof StatusCodeException e) {
-        log.warn("Got status code exception: {}", cause.getMessage());
+        log.warn("Got status code exception.", e);
         ctx.setResponseCode(e.getStatusCode());
-        var res = new ValidationErrorResponseDto(cause.getLocalizedMessage(), List.of());
+
+        ValidationErrorResponseDto res;
+        if (e instanceof NotFoundException nfe) {
+          var message = String.format("The path '%s' was not found.", nfe.getRequestPath());
+          res = new ValidationErrorResponseDto(message, List.of());
+        } else {
+          res = new ValidationErrorResponseDto(cause.getLocalizedMessage(), List.of());
+        }
         ctx.send(objectMapper.writeValueAsString(res));
       } else if (cause instanceof MismatchedInputException e) {
         log.warn("Request was invalid: {}", cause.getMessage());
